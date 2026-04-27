@@ -23,6 +23,10 @@ jobs:
         uses: astral-sh/setup-uv@v7
 
       - name: Build distributions
+        env:
+          PYTHONWARNINGS: >-
+            ignore::UserWarning:vcs_versioning._backends._git,
+            ignore::UserWarning:vcs_versioning.overrides
         run: uv build --no-sources
 
       - name: Check package metadata

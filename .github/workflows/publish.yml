@@ -12,6 +12,7 @@ jobs:
       contents: read
     outputs:
       release_tag: ${{ steps.version.outputs.release_tag }}
+      artifact_name: ${{ steps.artifact_name.outputs.name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,37 +32,65 @@ jobs:
           git fetch origin main --depth=1
           git merge-base --is-ancestor "$GITHUB_SHA" origin/main
 
-      - name: Validate tag matches package version
+      - name: Resolve release tag
         id: version
         run: |
-          python - <<'PY'
-          import os
-          import tomllib
-          from pathlib import Path
+          tag="${GITHUB_REF_NAME}"
+          if [[ "${tag}" != v* ]]; then
+            echo "expected tag starting with 'v', got: ${tag}" >&2
+            exit 1
+          fi
+          echo "release_tag=${tag}" >> "$GITHUB_OUTPUT"
 
-          tag = os.environ["GITHUB_REF_NAME"]
-          if not tag.startswith("v"):
-              raise SystemExit(f"expected tag starting with 'v', got: {tag}")
-
-          version = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))["project"]["version"]
-          expected = f"v{version}"
-          if tag != expected:
-              raise SystemExit(f"tag/version mismatch: tag={tag} pyproject={version}")
-          print(f"validated release tag {tag} for package version {version}")
-          with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as fh:
-              fh.write(f"release_tag={tag}\n")
-          PY
+      - name: Resolve artifact name
+        id: artifact_name
+        run: echo "name=dist-${RELEASE_TAG}" >> "$GITHUB_OUTPUT"
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.release_tag }}
 
       - name: Build distributions
+        env:
+          PYTHONWARNINGS: >-
+            ignore::UserWarning:vcs_versioning._backends._git,
+            ignore::UserWarning:vcs_versioning.overrides
         run: uv build --no-sources
 
       - name: Check package metadata
         run: uv run --with twine python -m twine check dist/*
 
+      - name: Capture built wheel path
+        id: wheel
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import pathlib
+
+          wheels = sorted(pathlib.Path("dist").glob("cardbox-*.whl"))
+          if len(wheels) != 1:
+              raise SystemExit(f"Expected exactly one wheel in dist/, found {len(wheels)}")
+          print(f"wheel_path={wheels[0]}")
+          PY
+
+      - name: Verify built version matches tag
+        run: |
+          python - <<'PY'
+          import os
+          import pathlib
+
+          wheel_name = pathlib.Path(os.environ["WHEEL_PATH"]).name
+          version = wheel_name.removeprefix("cardbox-").split("-py3", 1)[0]
+          tag = os.environ["RELEASE_TAG"].removeprefix("v")
+          if version != tag:
+              raise SystemExit(f"wheel version {version!r} does not match tag {tag!r}")
+          print(f"validated release version {version}")
+          PY
+        env:
+          RELEASE_TAG: ${{ steps.version.outputs.release_tag }}
+          WHEEL_PATH: ${{ steps.wheel.outputs.wheel_path }}
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: dist-${{ github.ref_name }}
+          name: ${{ steps.artifact_name.outputs.name }}
           path: dist/*
           if-no-files-found: error
 
@@ -74,7 +103,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: dist-${{ needs.build_release_artifacts.outputs.release_tag }}
+          name: ${{ needs.build_release_artifacts.outputs.artifact_name }}
           path: dist
 
       - name: Publish to PyPI
@@ -91,7 +120,7 @@ jobs:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
-          name: dist-${{ needs.build_release_artifacts.outputs.release_tag }}
+          name: ${{ needs.build_release_artifacts.outputs.artifact_name }}
           path: dist
 
       - name: Create GitHub release
