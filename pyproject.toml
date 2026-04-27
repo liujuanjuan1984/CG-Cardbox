@@ -3,15 +3,19 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "card-box-core"
-version = "0.1.0"
+name = "cardbox"
+version = "1.0.0"
 description = "Card-box based context management core library."
 readme = "README.md"
 requires-python = ">=3.12"
+license = "MIT"
+keywords = ["cardbox", "cards", "context", "llm", "postgres"]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
     "boto3>=1.42.6",
@@ -28,6 +32,14 @@ dependencies = [
     "uuid6",
 ]
 
+[project.urls]
+Homepage = "https://github.com/Intelligent-Internet/CG-Cardbox"
+Repository = "https://github.com/Intelligent-Internet/CG-Cardbox"
+Issues = "https://github.com/Intelligent-Internet/CG-Cardbox/issues"
+
+[project.scripts]
+cardbox = "cardbox.demo:main"
+
 [project.optional-dependencies]
 test = [
     "respx==0.22.0",
@@ -38,7 +50,7 @@ interactions = [
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["card_box_core*"]
+include = ["cardbox*"]
 
 [tool.setuptools.package-data]
-"card_box_core" = ["adapters/*.sql"]
+"cardbox" = ["adapters/*.sql"]

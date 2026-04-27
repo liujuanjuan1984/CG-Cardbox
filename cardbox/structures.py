@@ -7,11 +7,11 @@ from urllib.parse import urlparse
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator, ValidationError
 
-from card_box_core.config import settings
+from cardbox.config import settings
 
 
 if TYPE_CHECKING:  # pragma: no cover - only used for type checking
-    from card_box_core.services import CardStore
+    from cardbox.services import CardStore
 
 
 class InvalidCardContentError(ValueError):

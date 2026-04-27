@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-- `card_box_core/`: core library modules (`structures`, `engine`, `strategies`, `services`, `api_client`, `config`, `adapters`, `external`).
+- `cardbox/`: core library modules (`structures`, `engine`, `strategies`, `services`, `api_client`, `config`, `adapters`, `external`).
 - `tests/`: `unittest` test suite.
 - `main.py`: minimal runnable demo for PostgreSQL persistence flow.
 - `README.md`: primary and maintained documentation entry.

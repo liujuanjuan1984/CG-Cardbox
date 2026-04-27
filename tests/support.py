@@ -4,7 +4,7 @@ import itertools
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional
 
-from card_box_core.structures import Card, CardBox
+from cardbox.structures import Card, CardBox
 
 
 class InMemoryStorageAdapter:

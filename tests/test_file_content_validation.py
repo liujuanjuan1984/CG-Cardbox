@@ -1,8 +1,8 @@
 import datetime as dt
 import unittest
 
-from card_box_core.services import CardStore
-from card_box_core.structures import (
+from cardbox.services import CardStore
+from cardbox.structures import (
     Card,
     FileContent,
     ImageFileContent,

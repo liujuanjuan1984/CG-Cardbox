@@ -10,7 +10,7 @@ import uuid6
 from psycopg.rows import dict_row
 from psycopg_pool import AsyncConnectionPool
 
-from card_box_core.config import PostgresStorageAdapterSettings, settings
+from cardbox.config import PostgresStorageAdapterSettings, settings
 
 
 class AsyncPostgresStorageAdapter:
@@ -101,7 +101,7 @@ class AsyncPostgresStorageAdapter:
         self._schema_initialized = True
 
     async def add_card(self, card: "Card", tenant_id: str, *, conn: Any = None) -> None:
-        from card_box_core.structures import Content, TextContent, _serialize_content
+        from cardbox.structures import Content, TextContent, _serialize_content
 
         expires_at = None
         if card.ttl_seconds is not None:
@@ -143,7 +143,7 @@ class AsyncPostgresStorageAdapter:
             )
 
     async def get_card(self, card_id: str, tenant_id: str, *, conn: Any = None) -> Optional["Card"]:
-        from card_box_core.structures import Card, _deserialize_content
+        from cardbox.structures import Card, _deserialize_content
 
         async with self._connection(conn) as db_conn:
             result = await db_conn.execute(
@@ -186,7 +186,7 @@ class AsyncPostgresStorageAdapter:
         include_deleted: bool = False,
         conn: Any = None,
     ) -> List["Card"]:
-        from card_box_core.structures import Card, _deserialize_content
+        from cardbox.structures import Card, _deserialize_content
 
         query = """
             SELECT content, tool_calls, tool_call_id, metadata, card_id, ttl_seconds
@@ -247,7 +247,7 @@ class AsyncPostgresStorageAdapter:
         include_deleted: bool = False,
         conn: Any = None,
     ) -> List["Card"]:
-        from card_box_core.structures import Card, _deserialize_content
+        from cardbox.structures import Card, _deserialize_content
 
         if not tool_call_ids:
             return []
@@ -305,7 +305,7 @@ class AsyncPostgresStorageAdapter:
         include_deleted: bool = False,
         conn: Any = None,
     ) -> List["Card"]:
-        from card_box_core.structures import Card, _deserialize_content
+        from cardbox.structures import Card, _deserialize_content
 
         if not card_ids:
             return []
@@ -400,7 +400,7 @@ class AsyncPostgresStorageAdapter:
         return str(row.get("box_id"))
 
     async def load_card_box(self, box_id: str, tenant_id: str, *, conn: Any = None) -> Optional["CardBox"]:
-        from card_box_core.structures import CardBox
+        from cardbox.structures import CardBox
 
         async with self._connection(conn) as db_conn:
             result = await db_conn.execute(

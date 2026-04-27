@@ -2,9 +2,9 @@
     &nbspEnglish&nbsp | <a href="README_CN.md">中文</a>&nbsp 
 </p>
 
-# card-box-core
+# cardbox
 
-`card-box-core` is a data and context orchestration library centered around `Card` and `CardBox`.
+`cardbox` is a data and context orchestration library centered around `Card` and `CardBox`.
 
 ## Core Design Principles
 
@@ -52,11 +52,24 @@ source .venv/bin/activate
 pip install -e .
 ```
 
+From PyPI:
+
+```bash
+pip install cardbox
+```
+
 Optional extras:
 
 ```bash
 pip install -e .[test]
 pip install -e .[interactions]
+```
+
+If you want the packaged demo command through `uv`:
+
+```bash
+uv tool install cardbox
+cardbox
 ```
 
 ## PostgreSQL Configuration
@@ -84,6 +97,12 @@ Run:
 python main.py
 ```
 
+or, after installation:
+
+```bash
+cardbox
+```
+
 ## Run Tests
 
 ```bash
@@ -100,7 +119,7 @@ Notes:
 Use `configure` at startup to override default settings:
 
 ```python
-from card_box_core.config import configure
+from cardbox.config import configure
 
 configure({
     "POSTGRES_STORAGE_ADAPTER": {

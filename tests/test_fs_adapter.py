@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from card_box_core.adapters import LocalFileStorageAdapter
+from cardbox.adapters import LocalFileStorageAdapter
 
 
 class TestLocalFileStorageAdapter(unittest.TestCase):

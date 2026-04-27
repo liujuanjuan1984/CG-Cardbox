@@ -17,7 +17,7 @@ try:  # Optional dependency: google-genai
 except ModuleNotFoundError:  # pragma: no cover - optional install
     genai = None
 
-from card_box_core.config import (
+from cardbox.config import (
     ApiClientSettings,
     LLMAdapterSettings,
     InteractionsAPISettings,

@@ -37,7 +37,7 @@ class PdfToTextStrategySettings(BaseModel):
 # Main settings model with nested component settings.
 class Settings(BaseSettings):
     """
-    Manage configuration for the card_box_core library.
+    Manage configuration for the cardbox library.
     """
     API_CLIENT: ApiClientSettings = ApiClientSettings()
     LLM_ADAPTER: LLMAdapterSettings = LLMAdapterSettings()

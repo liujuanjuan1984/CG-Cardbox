@@ -4,7 +4,7 @@ import unittest
 import uuid6
 from unittest.mock import patch
 
-from card_box_core import (
+from cardbox import (
     Card,
     CardBox,
     CardStore,
@@ -18,8 +18,8 @@ from card_box_core import (
     ToolContent,
     ToolResultContent,
 )
-from card_box_core.structures import InvalidCardContentError
-from card_box_core.utils import FileReadError
+from cardbox.structures import InvalidCardContentError
+from cardbox.utils import FileReadError
 from tests.support import build_test_storage_adapter
 
 
@@ -196,7 +196,7 @@ class TestContextEngine(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(api_request["messages"][0]["role"], "user")
         self.assertEqual(json.loads(api_request["messages"][1]["content"]), {"value": 55})
 
-    @patch("card_box_core.strategies.read_file_uri", side_effect=FileReadError("Failed to read from URI"))
+    @patch("cardbox.strategies.read_file_uri", side_effect=FileReadError("Failed to read from URI"))
     @patch("sys.stdout", new_callable=io.StringIO)
     async def test_transform_with_failing_strategy(self, mock_stdout, _mock_read) -> None:
         engine = ContextEngine(

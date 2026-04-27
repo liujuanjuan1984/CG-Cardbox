@@ -3,8 +3,8 @@ from __future__ import annotations
 import httpx
 from typing import Any, Dict, List, Optional
 
-from card_box_core.structures import Card
-from card_box_core.external.object_store import ExternalObjectPointer
+from cardbox.structures import Card
+from cardbox.external.object_store import ExternalObjectPointer
 
 
 class A2AHelperClient:

@@ -3,7 +3,7 @@ import asyncio
 from unittest.mock import AsyncMock, patch
 
 from pydantic import BaseModel, Field
-from card_box_core.api_client import LLMAdapter
+from cardbox.api_client import LLMAdapter
 
 class User(BaseModel):
     name: str = Field(description="The user's name")

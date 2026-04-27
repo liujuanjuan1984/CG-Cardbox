@@ -4,17 +4,17 @@ import re
 from typing import Any, Dict, NamedTuple, List, Optional
 from urllib.parse import urlparse
 
-from card_box_core.structures import Card, CardBox, TextContent, PdfFileContent, TextFileContent
-from card_box_core.services import CardStore
-from card_box_core.adapters import FileStorageAdapter
-from card_box_core.a2aclient import A2AHelperClient
-from card_box_core.config import PdfToTextStrategySettings, settings
-from card_box_core.external.object_store import (
+from cardbox.structures import Card, CardBox, TextContent, PdfFileContent, TextFileContent
+from cardbox.services import CardStore
+from cardbox.adapters import FileStorageAdapter
+from cardbox.a2aclient import A2AHelperClient
+from cardbox.config import PdfToTextStrategySettings, settings
+from cardbox.external.object_store import (
     ExternalObjectPointer,
     ExternalObjectReader,
     ExternalObjectError,
 )
-from card_box_core.utils import read_file_uri, FileReadError
+from cardbox.utils import read_file_uri, FileReadError
 
 
 class Input(ABC):

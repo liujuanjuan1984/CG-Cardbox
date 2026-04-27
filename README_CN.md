@@ -2,9 +2,9 @@
    &nbsp中文&nbsp | <a href="README.md">English</a>
 </p>
 
-# card-box-core
+# cardbox
 
-`card-box-core` 是一个以 `Card` / `CardBox` 为核心的数据与上下文编排库。
+`cardbox` 是一个以 `Card` / `CardBox` 为核心的数据与上下文编排库。
 
 ## 核心设计原则
 
@@ -52,11 +52,24 @@ source .venv/bin/activate
 pip install -e .
 ```
 
+从 PyPI 安装：
+
+```bash
+pip install cardbox
+```
+
 可选依赖：
 
 ```bash
 pip install -e .[test]
 pip install -e .[interactions]
+```
+
+如果你想通过 `uv` 安装并获得 demo 命令：
+
+```bash
+uv tool install cardbox
+cardbox
 ```
 
 ## 配置 PostgreSQL
@@ -84,6 +97,12 @@ export CARD_BOX_POSTGRES_DSN="postgresql://user:pass@localhost:5432/cardbox_db"
 python main.py
 ```
 
+或者在安装后直接执行：
+
+```bash
+cardbox
+```
+
 ## 运行测试
 
 ```bash
@@ -100,7 +119,7 @@ python -m unittest discover -s tests -p 'test_*.py' -v
 可在启动时使用 `configure` 覆盖默认配置：
 
 ```python
-from card_box_core.config import configure
+from cardbox.config import configure
 
 configure({
     "POSTGRES_STORAGE_ADAPTER": {

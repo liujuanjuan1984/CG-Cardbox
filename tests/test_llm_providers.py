@@ -4,8 +4,8 @@ import asyncio
 from pydantic import BaseModel
 from typing import Optional
 
-from card_box_core.api_client import LLMAdapter
-from card_box_core.config import LLMAdapterSettings
+from cardbox.api_client import LLMAdapter
+from cardbox.config import LLMAdapterSettings
 
 # A simple Pydantic model for structured response
 class LLMQuote(BaseModel):

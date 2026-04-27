@@ -4,7 +4,7 @@ from typing import List, Dict, Any, Tuple, Optional, Callable, TYPE_CHECKING
 import copy
 import uuid6
 
-from card_box_core.structures import (
+from cardbox.structures import (
     Card,
     CardBox,
     ToolContent,
@@ -14,13 +14,13 @@ from card_box_core.structures import (
     TextContent,
     ToolResultContent,
 )
-from card_box_core.services import CardStore, CardHistory, CardBoxHistory, ApiHistory
-from card_box_core.adapters import LocalFileStorageAdapter, FileStorageAdapter
-from card_box_core.strategies import Strategy, Input
-from card_box_core.config import settings
+from cardbox.services import CardStore, CardHistory, CardBoxHistory, ApiHistory
+from cardbox.adapters import LocalFileStorageAdapter, FileStorageAdapter
+from cardbox.strategies import Strategy, Input
+from cardbox.config import settings
 
 if TYPE_CHECKING:
-    from card_box_core.api_client import LLMAdapter
+    from cardbox.api_client import LLMAdapter
 
 
 class ContextEngine:
@@ -46,7 +46,7 @@ class ContextEngine:
         Execute a sequence of transformations over a CardBox using strategy/input pairs.
         """
         try:
-            from card_box_core.config import settings
+            from cardbox.config import settings
             if settings.VERBOSE_LOGS:
                 print(f"[Trace ID: {self.trace_id}] Running transform with {len(strategy_input_pairs)} strategies...")
         except Exception:

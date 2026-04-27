@@ -1,5 +1,5 @@
 # Expose main data structures from the structures module
-from card_box_core.structures import (
+from cardbox.structures import (
     Card, 
     CardBox, 
     TextContent,
@@ -18,23 +18,23 @@ from card_box_core.structures import (
     AudioFileContent,
     MultiFileContent,
 )
-from card_box_core.services import CardStore, CardHistory, CardBoxHistory
-from card_box_core.engine import ContextEngine
-from card_box_core.strategies import (
+from cardbox.services import CardStore, CardHistory, CardBoxHistory
+from cardbox.engine import ContextEngine
+from cardbox.strategies import (
 	ExtractCodeStrategy,
 	PdfToTextStrategy,
 	Input,
     InlineTextFileContentStrategy,
 	PdfToTextStrategyInput,
 )
-from card_box_core.a2aclient import A2AHelperClient
-from card_box_core.adapters import (
+from cardbox.a2aclient import A2AHelperClient
+from cardbox.adapters import (
     AsyncPostgresStorageAdapter,
     FileStorageAdapter,
     LocalFileStorageAdapter,
     InMemoryMappingAdapter,
 )
-from card_box_core.external import (
+from cardbox.external import (
     ExternalObjectPointer,
     ExternalObjectReader,
     ExternalObjectError,
@@ -42,4 +42,4 @@ from card_box_core.external import (
     ExternalObjectNotFoundError,
     S3ObjectReader,
 )
-from card_box_core.config import configure
+from cardbox.config import configure

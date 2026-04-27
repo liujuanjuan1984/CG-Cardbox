@@ -1,7 +1,7 @@
 import json
 from typing import Dict, List, Optional, Any
 
-from card_box_core.structures import Card, CardBox
+from cardbox.structures import Card, CardBox
 
 class CardStore:
     """
@@ -103,7 +103,7 @@ class CardHistory:
                 self.storage.add_transformation(log_id, source_id, new_id)
         
         try:
-            from card_box_core.config import settings
+            from cardbox.config import settings
             if settings.VERBOSE_LOGS:
                 # Print a brief summary only (avoid dumping card contents)
                 total_pairs = sum(len(v or []) for v in relationship_map.values())
@@ -139,7 +139,7 @@ class CardBoxHistory:
             output_box_snapshot=output_snapshot,
         )
         try:
-            from card_box_core.config import settings
+            from cardbox.config import settings
             if settings.VERBOSE_LOGS:
                 print(f"CardBoxHistory: Logged transformation by {strategy_name}.")
         except Exception:

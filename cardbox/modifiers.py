@@ -3,7 +3,7 @@ import base64
 from typing import Dict, Any, List
 from urllib.parse import urlparse
 
-from card_box_core.utils import read_file_uri, FileReadError
+from cardbox.utils import read_file_uri, FileReadError
 
 def file_uri_to_base64(api_request: Dict[str, Any]) -> Dict[str, Any]:
     """
