@@ -38,7 +38,7 @@ Repository = "https://github.com/Intelligent-Internet/CG-Cardbox"
 Issues = "https://github.com/Intelligent-Internet/CG-Cardbox/issues"
 
 [project.scripts]
-cardbox = "cardbox.demo:main"
+cardbox = "cardbox.main:main"
 
 [project.optional-dependencies]
 test = [

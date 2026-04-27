@@ -1,4 +1,4 @@
-from cardbox.demo import main
+from cardbox.main import main
 
 
 if __name__ == "__main__":
